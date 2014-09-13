@@ -41,4 +41,4 @@ io.on('connection', function(socket) {
   console.log('a user connected');
   io.emit()
 });
-http.listen(3000);
+http.listen(process.env.PORT || 3000);
