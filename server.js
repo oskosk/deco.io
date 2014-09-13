@@ -22,23 +22,8 @@ app.get('/api/random', function(req, res) {
 deco.photos({
   tags: "gopro"
 }, function(err, photos) {
-  photos = photos.filter(function(v) {
-    return v.url_l != undefined;
-  })
-  var i = 0;
-  setInterval(function() {
-    var photo = photos[i++];
-    io.emit("photo", photo);
-    if (i == photos.length) {
-      i = 0;
-    }
-  }, 3000)
+  deco.broadcast(photos);
 });
 
 
-
-io.on('connection', function(socket) {
-  console.log('a user connected');
-  io.emit()
-});
 http.listen(process.env.PORT || 3000);
