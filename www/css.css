@@ -1,0 +1,35 @@
+html { 
+  height:100%;
+  margin:0;
+  padding:0;
+  background: url(http://css-tricks.com/examples/FullPageBackgroundImage/images/bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+
+}
+
+.somba {
+
+-webkit-transition: background-image 0.2s ease-in-out;
+-moz-transition: background-image 0.2s ease-in-out;
+-ms-transition: background-image 0.2s ease-in-out;
+-o-transition: background-image 0.2s ease-in-out;
+transition: background-image 0.2s ease-in-out;
+}
+
+.take-picture {
+  background:none;
+  color:white;
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:30;
+}
+
+.take-picture p.lead {
+    font-size:10em;
+
+}
