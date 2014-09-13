@@ -5,6 +5,7 @@ var express = require("express"),
   http = require('http').Server(app),
   io = require("socket.io")(http);
 
+
 app.use(cors());
 app.use(express.static(__dirname + '/www'));
 app.get('/api/random', function(req, res) {
