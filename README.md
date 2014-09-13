@@ -4,15 +4,24 @@ deco.io
 A slideshow web app that synchronizes every browser connected in the same LAN to the same stream of images from flickr based on a tag search
 
 
-# Installation
+## Installation
 
 ```
 $ git clone https://github.com/oskosk/deco.io
 $ npm install
 ```
 
-# Running
+## Running
 
 ```
 $ npm start
 ```
+
+## Roadmap
+
+* Make every client on the same lan receive messages for the same room
+* Make slide menu (snap) that allow to choose tags for the pictures
+* Allow the user to take a picture and start publishing it for all screen in the same LAN
+** Allow the user to define how often the taken pictures will be shown
+* Allow the user to modify the interval length
+* Automagic Full Screen
