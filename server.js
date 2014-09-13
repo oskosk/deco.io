@@ -19,7 +19,7 @@ app.get('/api/random', function(req, res) {
 });
 
 deco.photos({
-  tags: "ubatuba"
+  tags: "gopro"
 }, function(err, photos) {
   photos = photos.filter(function(v) {
     return v.url_l != undefined;
@@ -31,7 +31,7 @@ deco.photos({
     if (i == photos.length) {
       i = 0;
     }
-  }, 6000)
+  }, 3000)
 });
 
 
