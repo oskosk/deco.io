@@ -13,8 +13,6 @@ socket.on("photo", function(photo) {
 });
 
 
-
-
 function flipit(url) {
   $("html").css({
     "background": "url(" + url + ") no-repeat center center fixed",
