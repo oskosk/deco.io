@@ -2,8 +2,14 @@ cuadro = {};
 
 var socket = io();
 
+var queue = new createjs.LoadQueue(useXHR = false);
+queue.on("fileload", function(event) {
+  flipit(event.item.src);
+}, this);
+
 socket.on("photo", function(photo) {
-  flipit(photo.url_l);
+  queue.loadFile(photo.url_l);
+
 });
 
 
