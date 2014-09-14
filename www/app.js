@@ -34,11 +34,14 @@ socket.on("photo", function(photo) {
 })
 // send new search tags
 $("#options").submit(function(e) {
-  var tags = $("#tags").val();
-  socket.emit("newtags", {
-    tags: tags
+  var tags = $("#tags").val()
+  delay = $("#delay").val();
+  socket.emit("newoptions", {
+    tags: tags,
+    delay: delay
   });
   e.preventDefault();
+  $("#modal").modal("hide")
 });
 // prevent bubling of the clicks
 
