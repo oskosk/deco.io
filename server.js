@@ -1,5 +1,6 @@
 var express = require("express"),
   app = express(),
+  ip = require('ip'),
   deco = require("./lib/deco"),
   cors = require("cors"),
   http = require('http').Server(app),
@@ -11,11 +12,23 @@ app.use(express.static(__dirname + '/www'));
 deco.io = io;
 
 io.on("connection", function(socket) {
-  var room = socket.handshake.address;
+  var room,
+    forwarded_for = socket.handshake.headers['x-forwarded-for'];
+  if (forwarded_for && ip.isPrivate(forwarded_for)) {
+    // the request comes from a LAN
+    // original room by IP address is useful
+    room = socket.handshake.address;
+  } else if (forwarded_for && !isPublic(forwarded_for)) {
+    // the request is behind a reverse proxy
+    room = forwarded_for;
+  } else {
+    room = socket.handshake.address;
+  }
   socket.join(room);
-  console.log(room);
-  console.log(socket.handshake.headers['x-forwarded-for']);
-  console.log(socket.handshake.address.address);
+
+  // console.log(room);
+  // console.log(socket.handshake.headers['x-forwarded-for']);
+  // console.log(socket.handshake.address.address);
 
   //Load the pictures from flickr only on first
   // connection for each room (i.e. for now, the same LAN, or same public IP address)
