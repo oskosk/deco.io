@@ -7,25 +7,23 @@ var express = require("express"),
   io = require("socket.io")(http);
 
 
+// Allow cross-domain requests
 app.use(cors());
+// Servce static content from www directory
 app.use(express.static(__dirname + '/www'));
+// store the io reference inside the deco prototype
 deco.io = io;
 
 io.on("connection", function(socket) {
-  var room,
-    forwarded_for = socket.handshake.headers['x-forwarded-for'];
-  if (forwarded_for && ip.isPrivate(forwarded_for)) {
-    // the request comes from a LAN
-    // original room by IP address is useful
-    room = socket.handshake.address;
-  } else if (forwarded_for && !ip.isPrivate(forwarded_for)) {
-    // the request is behind a reverse proxy
-    room = forwarded_for;
-  } else {
-    room = socket.handshake.address;
-  }
-  socket.join(room);
+  var room;
+  room = getClientPublicAddress(socket);
 
+  socket.join(room);
+  socket.on("newtags", function(data) {
+    var tags = data.tags,
+      room = socket.rooms[1];
+    refreshSetOfImages(room, tags);
+  })
   // console.log(room);
   // console.log(socket.handshake.headers['x-forwarded-for']);
   // console.log(socket.handshake.address.address);
@@ -43,9 +41,36 @@ io.on("connection", function(socket) {
   }
 });
 
+refreshSetOfImages = function(room, tags) {
+  var options = undefined;
+  deco.stopRoomInterval(room);
+  deco._photos[room] = [];
+  if (tags) {
+    options = {
+      tags: tags
+    };
+  }
+  deco.photos(options, function(err, photos) {
+    deco._photos[room] = photos;
+    deco.broadcast(room);
+  });
+}
 
-
-
+getClientPublicAddress = function(socket) {
+  var address,
+    forwarded_for = socket.handshake.headers['x-forwarded-for'];
+  if (forwarded_for && ip.isPrivate(forwarded_for)) {
+    // the request comes from a LAN
+    // original room by IP address is useful
+    address = socket.handshake.address;
+  } else if (forwarded_for && !ip.isPrivate(forwarded_for)) {
+    // the request is behind a reverse proxy
+    address = forwarded_for;
+  } else {
+    address = socket.handshake.address;
+  }
+  return address;
+}
 
 
 http.listen(process.env.PORT || 3000);
