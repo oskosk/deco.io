@@ -15,7 +15,7 @@ app.use(express.static(__dirname + '/www'));
 deco.io = io;
 
 io.on("connection", function(socket) {
-  var room = room = getClientPublicAddress(socket);
+  var room = getClientPublicAddress(socket);
 
   socket.join(room);
   socket.on("newoptions", function(data) {
