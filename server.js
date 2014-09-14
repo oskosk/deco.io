@@ -14,8 +14,8 @@ io.on("connection", function(socket) {
   var room = socket.handshake.address;
   socket.join(room);
   console.log(room);
-  console.log(client.handshake.headers['x-forwarded-for']);
-  console.log(client.handshake.address.address);
+  console.log(socket.handshake.headers['x-forwarded-for']);
+  console.log(socket.handshake.address.address);
 
   //Load the pictures from flickr only on first
   // connection for each room (i.e. for now, the same LAN, or same public IP address)
