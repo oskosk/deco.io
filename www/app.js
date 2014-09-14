@@ -2,6 +2,9 @@ cuadro = {};
 
 var socket = io();
 
+if (screenfull) {
+  screenfull.request();
+}
 
 // preload images that will be used as background
 var queue = new createjs.LoadQueue(useXHR = false);
