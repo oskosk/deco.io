@@ -8,22 +8,27 @@ var express = require("express"),
 
 app.use(cors());
 app.use(express.static(__dirname + '/www'));
-app.get('/api/random', function(req, res) {
-  var i = 0;
-  deco.photos(function(err, data) {
-    photos = data.photos.photo;
-    photos = photos.filter(function(v) {
-      return v.url_l != undefined;
-    })
-    res.send(photos);
-  });
+deco.io = io;
+
+io.on("connection", function(socket) {
+  var room = socket.handshake.address;
+  socket.join(room);
+  //Load the pictures from flickr only on first
+  // connection for each room (i.e. for now, the same LAN, or same public IP address)
+  if (deco._photos[room] === undefined) {
+    //define it empty so the previous check is always true
+    // for subsequent clients
+    deco._photos[room] = [];
+    deco.photos(undefined, function(err, photos) {
+      deco._photos[room] = photos;
+      deco.broadcast(room);
+    });
+  }
 });
 
-deco.photos({
-  tags: "gopro"
-}, function(err, photos) {
-  deco.broadcast(photos);
-});
+
+
+
 
 
 http.listen(process.env.PORT || 3000);
