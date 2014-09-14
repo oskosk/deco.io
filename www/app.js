@@ -2,6 +2,11 @@ cuadro = {};
 
 var socket = io();
 
+if (screenfull) {
+  $("html").click(function() {
+    screenfull.toggle();
+  });
+}
 
 // preload images that will be used as background
 var queue = new createjs.LoadQueue(useXHR = false);
