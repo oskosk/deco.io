@@ -13,6 +13,7 @@ deco.io = io;
 io.on("connection", function(socket) {
   var room = socket.handshake.address;
   socket.join(room);
+  console.log(room);
   //Load the pictures from flickr only on first
   // connection for each room (i.e. for now, the same LAN, or same public IP address)
   if (deco._photos[room] === undefined) {
