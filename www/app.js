@@ -26,13 +26,14 @@ var queue = new createjs.LoadQueue(useXHR = false);
 // files queued with loadFile
 queue.on("fileload", function(event) {
   flipit(event.item.src);
+
+}, this);
+
+socket.on("photo", function(photo) {
   // Clean the queue because
   // queued images get loaded in spite
   // of a new photo arriving.
   queue.removeAll();
-}, this);
-
-socket.on("photo", function(photo) {
   // queue the photo till it fires the fileload event
   queue.loadFile(photo.url_l);
 })
