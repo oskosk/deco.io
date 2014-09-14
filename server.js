@@ -15,12 +15,11 @@ app.use(express.static(__dirname + '/www'));
 deco.io = io;
 
 io.on("connection", function(socket) {
-  var room;
-  room = getClientPublicAddress(socket);
+  var room = room = getClientPublicAddress(socket);
 
   socket.join(room);
   socket.on("newoptions", function(data) {
-    room = socket.rooms[1];
+    var room = socket.rooms[1];
     refreshSetOfImages(room, data.tags, data.delay);
   })
   console.log(room);
