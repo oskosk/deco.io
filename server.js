@@ -19,10 +19,9 @@ io.on("connection", function(socket) {
   room = getClientPublicAddress(socket);
 
   socket.join(room);
-  socket.on("newtags", function(data) {
-    var tags = data.tags,
-      room = socket.rooms[1];
-    refreshSetOfImages(room, tags);
+  socket.on("newoptions", function(data) {
+    room = socket.rooms[1];
+    refreshSetOfImages(room, data.tags, data.delay);
   })
   // console.log(room);
   // console.log(socket.handshake.headers['x-forwarded-for']);
@@ -36,23 +35,22 @@ io.on("connection", function(socket) {
     deco._photos[room] = [];
     deco.photos(undefined, function(err, photos) {
       deco._photos[room] = photos;
-      deco.broadcast(room);
+      deco.broadcast(room, 3);
     });
   }
 });
 
-refreshSetOfImages = function(room, tags) {
-  var options = undefined;
+refreshSetOfImages = function(room, tags, delay) {
+  var options = {};
   deco.stopRoomInterval(room);
   deco._photos[room] = [];
   if (tags) {
-    options = {
-      tags: tags
-    };
+    options.tags = tags;
   }
+
   deco.photos(options, function(err, photos) {
     deco._photos[room] = photos;
-    deco.broadcast(room);
+    deco.broadcast(room, delay);
   });
 }
 
