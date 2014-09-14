@@ -19,15 +19,17 @@ $ npm start
 
 ## Roadmap
 
-* Make every client on the same lan receive messages for the same room
-* Make slide menu (snap) that allow to choose tags for the pictures
+
 * Allow the user to take a picture and start publishing it for all screen in the same LAN
 ** Allow the user to define how often the taken pictures will be shown
-* Allow the user to modify the interval length
-* Automagic Full Screen
 
 
 ## Changelog
+
+###1.6.0
+
+* User can search by text instead of tags. 
+
 
 ###1.5.0
 
