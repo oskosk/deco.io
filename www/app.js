@@ -37,12 +37,12 @@ socket.on("photo", function(photo) {
   // queue the photo till it fires the fileload event
   queue.loadFile(photo.url_l);
 })
-// send new search tags
+// send new search text
 $("#options").submit(function(e) {
-  var tags = $("#tags").val()
+  var text = $("#text").val()
   delay = $("#delay").val();
   socket.emit("newoptions", {
-    tags: tags,
+    text: text,
     delay: delay
   });
   e.preventDefault();
