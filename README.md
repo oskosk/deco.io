@@ -32,3 +32,4 @@ $ npm start
 ###1.4.0
 
 * every client on the same lan receive messages for the same room
+* Automagic Full Screen on single click

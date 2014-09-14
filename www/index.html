@@ -4,18 +4,46 @@
 <script src="//code.jquery.com/jquery.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="css.css" rel="stylesheet" type="text/css" />
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/PreloadJS/0.4.1/preloadjs.min.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="app.js"></script>
+
   <meta charset="utf-8">
   <title>deco.io - Beautiful images on every screen in your room</title>
 </head>
 <body>
-  <div class="take-picture  hidden-md hidden-lg">
-   <input class="btn btn-default" type="file" accept="image/*" capture="camera">
-    <!-- <button></button> -->
-  </div>
+<div id="modal" class="modal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="#modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Deco.io options</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-inline" id="options" role="form">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon">Tags</div>
+              <label class="sr-only" for="tags">Tags</label>
+              <input type="text" class="form-control" id="tags" placeholder="Enter search term for pictures">
+            </div>
+            <div class="input-group">
+              <div class="input-group-addon">Delay</div>
+              <label class="sr-only" for="delay">Delay</label>
+              <input value="6" type="text" class="form-control" id="delay" placeholder="Seconds between images">
+            </div>            
+          </div>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/PreloadJS/0.4.1/preloadjs.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/screenfull.js/1.0.4/screenfull.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
