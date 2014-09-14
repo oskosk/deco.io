@@ -25,7 +25,8 @@ var queue = new createjs.LoadQueue(useXHR = false);
 //The queue emits fileload event for
 // files queued with loadFile
 queue.on("fileload", function(event) {
-  flipit(event.item.src);
+  flipit(event.item.src, event.item.data.title);
+
 
 }, this);
 
@@ -35,16 +36,25 @@ socket.on("photo", function(photo) {
   // of a new photo arriving.
   queue.removeAll();
   // queue the photo till it fires the fileload event
-  queue.loadFile(photo.url_l);
+  queue.loadFile({
+    src: photo.url_l,
+    data: photo
+  });
 })
+
+function getOptionsFromUi() {
+  var options = {
+    text: $("#text").val(),
+    delay: $("#delay").val()
+  }
+  return options;
+}
+
 // send new search text
 $("#options").submit(function(e) {
-  var text = $("#text").val()
-  delay = $("#delay").val();
-  socket.emit("newoptions", {
-    text: text,
-    delay: delay
-  });
+  var options = getOptionsFromUi();
+
+  socket.emit("newoptions", options);
   e.preventDefault();
   $("#modal").modal("hide")
 });
@@ -54,7 +64,8 @@ $("#modal").click(function(e) {
   e.stopPropagation();
 });
 
-function flipit(url) {
+function flipit(url, caption) {
+  var showCaption;
   $("html").css({
     "background": "url(" + url + ") no-repeat center center fixed",
     "-webkit-background-size": "cover",
@@ -62,5 +73,11 @@ function flipit(url) {
     "-o-background-size": "cover",
     "background-size": "cover"
   });
-
+  // get random true or false;
+  showCaption = (Math.random() < 0.5);
+  if (showCaption && caption) {
+    $(".imgCaption").html(caption).show();
+  } else {
+    $(".imgCaption").html(caption).hide();
+  }
 }

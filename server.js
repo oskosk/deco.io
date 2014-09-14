@@ -19,7 +19,7 @@ io.on("connection", function(socket) {
 
   socket.on("newoptions", function(data) {
     var room = socket.rooms[1];
-    refreshSetOfImages(room, data.text, data.delay);
+    refreshImageSet(room, data.text, data.delay);
   })
 
   socket.join(room, function() {
@@ -42,7 +42,7 @@ io.on("connection", function(socket) {
   });
 });
 
-refreshSetOfImages = function(room, text, delay) {
+refreshImageSet = function(room, text, delay) {
   var options = {};
   deco.stopRoomInterval(room);
   deco._photos[room] = [];
