@@ -3,7 +3,9 @@ cuadro = {};
 var socket = io();
 
 if (screenfull) {
-  screenfull.request();
+  $("html").click(function() {
+    screenfull.toggle();
+  });
 }
 
 // preload images that will be used as background
