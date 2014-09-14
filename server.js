@@ -18,7 +18,7 @@ io.on("connection", function(socket) {
     // the request comes from a LAN
     // original room by IP address is useful
     room = socket.handshake.address;
-  } else if (forwarded_for && !isPublic(forwarded_for)) {
+  } else if (forwarded_for && !ip.isPrivate(forwarded_for)) {
     // the request is behind a reverse proxy
     room = forwarded_for;
   } else {
