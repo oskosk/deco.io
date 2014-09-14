@@ -29,7 +29,16 @@ $ npm start
 
 ## Changelog
 
+###1.5.0
+
+* User can search photos 
+* Automagic Full Screen on single click
+* Search options on double click
+** Search tags
+** Slideshow delay between each image
+
 ###1.4.0
 
 * every client on the same lan receive messages for the same room
 * Automagic Full Screen on single click
+
