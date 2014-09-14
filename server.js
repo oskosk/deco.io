@@ -15,29 +15,31 @@ app.use(express.static(__dirname + '/www'));
 deco.io = io;
 
 io.on("connection", function(socket) {
-  var room;
-  room = getClientPublicAddress(socket);
+  var room = getClientPublicAddress(socket);
 
-  socket.join(room);
   socket.on("newoptions", function(data) {
-    room = socket.rooms[1];
+    var room = socket.rooms[1];
     refreshSetOfImages(room, data.tags, data.delay);
   })
-  // console.log(room);
-  // console.log(socket.handshake.headers['x-forwarded-for']);
-  // console.log(socket.handshake.address.address);
 
-  //Load the pictures from flickr only on first
-  // connection for each room (i.e. for now, the same LAN, or same public IP address)
-  if (deco._photos[room] === undefined) {
-    //define it empty so the previous check is always true
-    // for subsequent clients
-    deco._photos[room] = [];
-    deco.photos(undefined, function(err, photos) {
-      deco._photos[room] = photos;
-      deco.broadcast(room, 3);
-    });
-  }
+  socket.join(room, function() {
+    console.log(room);
+
+    console.log(socket.rooms);
+
+    //Load the pictures from flickr only on first
+    // connection for each room (i.e. for now, the same LAN, or same public IP address)
+    if (deco._photos[room] === undefined) {
+      //define it empty so the previous check is always true
+      // for subsequent clients
+      deco._photos[room] = [];
+      deco.photos(undefined, function(err, photos) {
+        deco._photos[room] = photos;
+        deco.broadcast(room, 3);
+      });
+    }
+
+  });
 });
 
 refreshSetOfImages = function(room, tags, delay) {
