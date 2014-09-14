@@ -21,7 +21,9 @@ $ npm start
 
 
 * Allow the user to take a picture and start publishing it for all screen in the same LAN
-** Allow the user to define how often the taken pictures will be shown
+ * Allow the user to define how often the taken pictures will be shown
+* Choose (or define) a room.
+* List currently open rooms
 
 
 ## Changelog
