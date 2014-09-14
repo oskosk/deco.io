@@ -25,3 +25,10 @@ $ npm start
 ** Allow the user to define how often the taken pictures will be shown
 * Allow the user to modify the interval length
 * Automagic Full Screen
+
+
+## Changelog
+
+###1.4.0
+
+* every client on the same lan receive messages for the same room
