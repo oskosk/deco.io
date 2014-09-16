@@ -38,3 +38,11 @@ body {
     font-size:10em;
 
 }
+
+.imgCaption {
+  position: absolute; bottom: 0;
+  background: rgba(0,0,0,0.3);
+  color: #fff; width: 100%;
+  font-size: 5rem; padding: .5rem;
+}
+
