@@ -1,23 +1,24 @@
 var socket = io();
-var waitingDblclick = false;
+var taps = 0;
 if (screenfull) {
-  $("body").click(function() {
-    waitingDblclick = true;
+  $("body").on("touchend", function() {
+    taps++;
     window.setTimeout(function() {
-      if (waitingDblclick) {
+      if (taps > 1) {
+        $("#modal").modal("show");
+        taps = 0;
+      } else if (taps == 1) {
         screenfull.toggle();
+        taps = 0;
       }
     }, 300);
     // e.preventDefault();
   });
 }
 
-$("body").dblclick(function(e) {
-  waitingDblclick = false;
-  $("#modal").modal("show");
 
-
-
+window.addEventListener("orientationchange", function() {
+  hideAddressBar();
 });
 
 // preload images that will be used as background
@@ -60,7 +61,7 @@ $("#options").submit(function(e) {
 });
 // prevent bubling of the clicks
 
-$("#modal").click(function(e) {
+$("#modal").on("touchend", function(e) {
   e.stopPropagation();
 });
 
