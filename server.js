@@ -49,6 +49,10 @@ refreshImageSet = function(room, text, delay) {
   if (text) {
     options.text = text;
   }
+  // some defaults
+  options.safe_search = 2;
+  options.content_type = 1;
+  options.per_page = 500;
 
   deco.photos(options, function(err, photos) {
     deco._photos[room] = photos;
