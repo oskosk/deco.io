@@ -1,5 +1,12 @@
-var socket = io();
-var taps = 0;
+/*global $:false */
+/*global io:false */
+/*global createjs:false */
+
+
+var socket = io(),
+  taps = 0,
+  screenfull = false;
+
 if (screenfull) {
   $("body").on("touchend", function() {
     taps++;
@@ -7,7 +14,7 @@ if (screenfull) {
       if (taps > 1) {
         $("#modal").modal("show");
         taps = 0;
-      } else if (taps == 1) {
+      } else if (taps === 1) {
         screenfull.toggle();
         taps = 0;
       }
@@ -41,13 +48,13 @@ socket.on("photo", function(photo) {
     src: photo.url_l,
     data: photo
   });
-})
+});
 
 function getOptionsFromUi() {
   var options = {
     text: $("#text").val(),
     delay: $("#delay").val()
-  }
+  };
   return options;
 }
 
@@ -57,7 +64,7 @@ $("#options").submit(function(e) {
 
   socket.emit("newoptions", options);
   e.preventDefault();
-  $("#modal").modal("hide")
+  $("#modal").modal("hide");
 });
 // prevent bubling of the clicks
 

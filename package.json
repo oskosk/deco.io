@@ -1,6 +1,6 @@
 {
   "name": "deco.io",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "A slideshow web app that synchronizes every browser connected in the same LAN to the same stream of images from flickr based on a tag search",
   "main": "server.js",
   "directories": {
@@ -13,7 +13,8 @@
     "node-flickr": "0.0.2",
     "socket.io": "~1.1.0",
     "config": "~1.1.0",
-    "ip": "~0.3.1"
+    "ip": "~0.3.1",
+    "debug": "~2.1.1"
   },
   "devDependencies": {},
   "scripts": {

@@ -1,5 +1,6 @@
 var express = require("express"),
   app = express(),
+  debug = require("debug")("deco.io:server"),
   ip = require('ip'),
   deco = require("./lib/deco"),
   cors = require("cors"),
@@ -20,12 +21,12 @@ io.on("connection", function(socket) {
   socket.on("newoptions", function(data) {
     var room = socket.rooms[1];
     refreshImageSet(room, data.text, data.delay);
-  })
+  });
 
   socket.join(room, function() {
-    console.log(room);
+    debug(room);
 
-    console.log(socket.rooms);
+    debug(socket.rooms);
 
     //Load the pictures from flickr only on first
     // connection for each room (i.e. for now, the same LAN, or same public IP address)
@@ -42,7 +43,7 @@ io.on("connection", function(socket) {
   });
 });
 
-refreshImageSet = function(room, text, delay) {
+function refreshImageSet(room, text, delay) {
   var options = {};
   deco.stopRoomInterval(room);
   deco._photos[room] = [];
@@ -60,7 +61,7 @@ refreshImageSet = function(room, text, delay) {
   });
 }
 
-getClientPublicAddress = function(socket) {
+function getClientPublicAddress(socket) {
   var address,
     forwarded_for = socket.handshake.headers['x-forwarded-for'];
   if (forwarded_for && ip.isPrivate(forwarded_for)) {
