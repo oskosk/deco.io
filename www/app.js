@@ -1,11 +1,11 @@
 /*global $:false */
 /*global io:false */
 /*global createjs:false */
+/*global screenfull:false */
 
 
 var socket = io(),
-  taps = 0,
-  screenfull = false;
+  taps = 0;
 
 if (screenfull) {
   $("body").on("touchend", function() {
@@ -83,9 +83,9 @@ function flipit(url, caption) {
   });
   // get random true or false;
   showCaption = (Math.random() < 0.5);
-  if (showCaption && caption) {
-    $(".imgCaption").html(caption).show();
-  } else {
-    $(".imgCaption").html(caption).hide();
-  }
+  // if (showCaption && caption) {
+  //   $(".imgCaption").html(caption).show();
+  // } else {
+  //   $(".imgCaption").html(caption).hide();
+  // }
 }
